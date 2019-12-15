@@ -16,7 +16,10 @@
               :checked="toExport[currentDbName].indexOf(collection) !== -1"
               @change="setCollection(collection)"
             />
-            <label :for="collection" :style="{ color: (toExport[currentDbName].indexOf(collection) !== -1 ? 'green' : 'gray') }">{{collection}}</label>
+            <label
+              :for="collection"
+              :style="{ color: (toExport[currentDbName].indexOf(collection) !== -1 ? 'green' : 'gray') }"
+            >{{collection}}</label>
           </div>
         </div>
         <div class="col-sm">
@@ -92,24 +95,18 @@ export default {
       this.toExport = { ...this.toExport };
     },
     download() {
-      let bodyrequest = { vadena_25November: ["test0"] };
-      console.log("Download Started");
       api
-        .exportCollectionsJSON(bodyrequest)
+        .exportCollectionsJSON(this.toExport)
         .then(data => this.downloadFile(data));
     },
     downloadFile(data) {
       console.log(data);
-      var fileURL = window.URL.createObjectURL(
-        new Blob([JSON.stringify(data)], { type: "application/json" })
-      );
-      var fileLink = document.createElement("a");
-
-      fileLink.href = fileURL;
-      fileLink.setAttribute("download", "imported.json");
-      document.body.appendChild(fileLink);
-
-      fileLink.click();
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "zip.zip");
+      document.body.appendChild(link);
+      link.click();
     }
   },
   mounted() {

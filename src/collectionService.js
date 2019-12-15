@@ -12,11 +12,11 @@ export async function getCollections() {
 }
 
 export async function exportCollectionsJSON(body) {
-    const res = await axios.post(urlJSON, body);
-    return res.data
+    const res = await axios.post(urlJSON, body, { responseType: 'blob' });
+    return res.data;
 }
 
 export async function exportCollectionsCSV(body) {
     const res = await axios.post(urlCSV, body);
-    return res.data
+    return res.data;
 }
