@@ -1,8 +1,9 @@
 import * as axios from 'axios';
 
-const url = 'http://localhost:5000/api/collections';
-const urlCSV = 'http://localhost:5000/api/collections/csv';
-const urlJSON = 'http://localhost:5000/api/collections/json';
+const address = 'localhost'
+const url = `http://${address}:5000/api/collections`;
+const urlCSV = `http://${address}:5000/api/collections/csv`;
+const urlJSON = `http://${address}:5000/api/collections/json`;
 
 // Get Collections
 export async function getCollections() {
