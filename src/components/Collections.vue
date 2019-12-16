@@ -1,5 +1,6 @@
 <template>
   <div class="collections">
+    <random-spinner v-if="loading" />
     <div class="container">
       <div class="row">
         <div class="col-sm">
@@ -33,13 +34,15 @@
       </div>
     </div>
     <div class="container">
-      <button @click="download()">Download ME!</button>
+      <button @click="downloadJson()">Download JSON!</button>
+       <button @click="downloadCsv()">Download CSV!</button>
     </div>
   </div>
 </template>
 
 <script>
 import * as api from "../collectionService";
+import RandomSpinner from './RandomSpinner';
 
 export default {
   name: "collections",
@@ -47,6 +50,7 @@ export default {
     return {
       collections: {},
       currentDb: 0,
+      loading: false,
       toExport: {},
       selectedDatabases: []
     };
@@ -64,6 +68,9 @@ export default {
     currentDbName: function() {
       return this.databases[this.currentDb];
     }
+  },
+  components: {
+    RandomSpinner
   },
   watch: {
     databases: function() {
@@ -94,10 +101,17 @@ export default {
       }
       this.toExport = { ...this.toExport };
     },
-    download() {
-      api
-        .exportCollectionsJSON(this.toExport)
-        .then(data => this.downloadFile(data));
+    async downloadJson() {
+      this.loading = true;
+      const data = await api.exportCollectionsJSON(this.toExport);
+      this.downloadFile(data);
+      this.loading = false;
+    },
+    async downloadCsv() {
+      this.loading = true;
+      const data = await api.exportCollectionsCSV(this.toExport);
+      this.downloadFile(data);
+      this.loading = false;
     },
     downloadFile(data) {
       console.log(data);
