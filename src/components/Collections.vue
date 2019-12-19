@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-sm">
           <div v-for="(db, index) of databases" :key="db">
-            <h2 @click="selectDb(index)">{{db}}</h2>
+            <h2 @click="selectDb(index)" style="cursor: pointer;">{{db}}</h2>
           </div>
         </div>
         <div class="col-sm">
@@ -19,7 +19,7 @@
             />
             <label
               :for="collection"
-              :style="{ color: (toExport[currentDbName].indexOf(collection) !== -1 ? 'green' : 'gray') }"
+              :style="{ cursor: 'pointer', color: (toExport[currentDbName].indexOf(collection) !== -1 ? 'green' : 'gray') }"
             >{{collection}}</label>
           </div>
         </div>
@@ -34,8 +34,8 @@
       </div>
     </div>
     <div class="container">
-      <button @click="downloadJson()">Download JSON!</button>
-       <button @click="downloadCsv()">Download CSV!</button>
+      <button @click="downloadJson()" class="btn btn-outline-success">JSON</button>
+      <button @click="downloadCsv()" class="btn btn-outline-success">CSV</button>
     </div>
   </div>
 </template>
