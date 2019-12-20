@@ -1,27 +1,33 @@
 <template>
   <div id="app">
-    <home msg="Telemetria"/>
+    <home msg="Telemetria" />
   </div>
 </template>
 
 <script>
-import Home from './components/Home.vue'
+import Home from "./components/Home.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     Home
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif !important;
+* {
+  font-family: "Avenir", Helvetica, Arial, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #060606 !important;
+  color: #ffffff;
+}
+</style>
+
+<style scoped>
+#app {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 40px;
+  margin: 40px;
 }
 </style>

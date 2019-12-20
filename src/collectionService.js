@@ -1,6 +1,6 @@
 import * as axios from 'axios';
 
-const address = '192.168.8.102'
+const address = 'localhost'//'192.168.8.102'
 const url = `http://${address}:5000/api/collections`;
 const urlCSV = `http://${address}:5000/api/collections/csv`;
 const urlJSON = `http://${address}:5000/api/collections/json`;

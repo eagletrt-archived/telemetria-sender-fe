@@ -1,15 +1,17 @@
 <template>
   <div class="collections">
-    <random-spinner v-if="loading" />
+    <div class="charging" v-if="loading">
+      <random-spinner />
+    </div>
     <div class="container">
       <div class="row">
         <div class="col-sm">
-          <div v-for="(db, index) of databases" :key="db">
-            <h2 @click="selectDb(index)" style="cursor: pointer;">{{db}}</h2>
+          <div v-for="(db, index) of databases" :key="db" class="database">
+            <span @click="selectDb(index)" :class="{ selected: (db === currentDbName) }">{{db}}</span>
           </div>
         </div>
         <div class="col-sm">
-          <div v-for="collection of currentCollections" :key="collection">
+          <div v-for="collection of currentCollections" :key="collection" class="collection">
             <input
               v-show="false"
               type="checkbox"
@@ -19,30 +21,30 @@
             />
             <label
               :for="collection"
-              :style="{ cursor: 'pointer', color: (toExport[currentDbName].indexOf(collection) !== -1 ? 'green' : 'gray') }"
+              :class="{ selected: (toExport[currentDbName].indexOf(collection) !== -1) }"
             >{{collection}}</label>
           </div>
         </div>
         <div class="col-sm">
-          <div v-for="db of selectedDatabases" :key="db">
-            <h4>{{db}}</h4>
+          <div v-for="db of selectedDatabases" :key="db" class="repilogue">
+            <h4 class="selected">{{db}}</h4>
             <div v-for="collection of toExport[db]" :key="collection">
-              <span>{{ collection }}</span>
+              <span class="collection-repilogue">{{ collection }}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="container">
-      <button @click="downloadJson()" class="btn btn-outline-success">JSON</button>
-      <button @click="downloadCsv()" class="btn btn-outline-success">CSV</button>
+    <div class="container button-container">
+      <button @click="downloadJson()" class="btn btn-outline-primary">JSON</button>
+      <button @click="downloadCsv()" class="btn btn-outline-primary">CSV</button>
     </div>
   </div>
 </template>
 
 <script>
 import * as api from "../collectionService";
-import RandomSpinner from './RandomSpinner';
+import RandomSpinner from "./RandomSpinner";
 
 export default {
   name: "collections",
@@ -132,12 +134,58 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.btn-outline-primary {
+  border-color: #ffec00 !important;
+  color: #ffec00 !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: #ffec00 !important;
+  color: black !important;
+}
+
 .collections {
-  font-family: "Avenir", Helvetica, Arial, sans-serif !important;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 40px;
+  margin: 40px;
+}
+
+.database span {
+  font-size: 24px;
+  cursor: pointer;
+  color: #757575;
+}
+
+.collection label {
+  font-size: 18px;
+  cursor: pointer;
+  color: #bcbcbc;
+}
+
+.repilogue {
+  margin: 5px;
+}
+
+.collection-repilogue {
+  color: #bcbcbc;
+}
+
+.selected {
+  color: #ffec00 !important;
+}
+
+.button-container {
+  margin: 40px 0;
+}
+
+.button-container button {
+  margin: 8px;
+}
+
+.charging {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 </style>

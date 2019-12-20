@@ -1,15 +1,15 @@
 <template>
   <div id="home">
     <div class="home">
-      <h1>{{ msg }}</h1>
+      <h1 class="title">{{ msg }}</h1>
       <collections/>
     </div>
   </div>
 </template>
 
 <script>
-import * as api from '../collectionService'
-import Collections from './Collections.vue'
+import * as api from '../collectionService';
+import Collections from './Collections.vue';
 
 export default {
   name: 'Home',
@@ -36,15 +36,9 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-#home {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif !important;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 40px;
+.title {
+  color: #F4F4F4;
+  font-weight: bold;
 }
 </style>
