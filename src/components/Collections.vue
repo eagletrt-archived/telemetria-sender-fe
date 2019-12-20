@@ -28,8 +28,8 @@
         <div class="col-sm">
           <div v-for="db of selectedDatabases" :key="db" class="repilogue">
             <h4 class="selected">{{db}}</h4>
-            <div v-for="collection of toExport[db]" :key="collection">
-              <span class="collection-repilogue">{{ collection }}</span>
+            <div v-for="(collection, index) of toExport[db]" :key="collection">
+              <span class="collection-repilogue" @click="remove(db, index)">{{ collection }}</span>
             </div>
           </div>
         </div>
@@ -103,6 +103,9 @@ export default {
       }
       this.toExport = { ...this.toExport };
     },
+    remove(db, index) {
+      this.toExport[db].splice(index, 1);
+    },
     async downloadJson() {
       this.loading = true;
       const data = await api.exportCollectionsJSON(this.toExport);
@@ -166,6 +169,7 @@ export default {
 
 .collection-repilogue {
   color: #bcbcbc;
+  cursor: pointer;
 }
 
 .selected {
