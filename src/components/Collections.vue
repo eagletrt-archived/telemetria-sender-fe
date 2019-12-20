@@ -1,7 +1,7 @@
 <template>
   <div class="collections">
-    <div class="charging" v-if="loading">
-      <random-spinner />
+    <div class="shadow" v-if="loading">
+      <eagle-spinner class="eagle" />
     </div>
     <div class="container">
       <div class="row">
@@ -44,7 +44,7 @@
 
 <script>
 import * as api from "../collectionService";
-import RandomSpinner from "./RandomSpinner";
+import EagleSpinner from "./EagleSpinner";
 
 export default {
   name: "collections",
@@ -72,7 +72,7 @@ export default {
     }
   },
   components: {
-    RandomSpinner
+    EagleSpinner
   },
   watch: {
     databases: function() {
@@ -135,7 +135,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .btn-outline-primary {
   border-color: #ffec00 !important;
@@ -184,12 +183,18 @@ export default {
   margin: 8px;
 }
 
-.charging {
+.shadow {
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
+  background: #000000DC !important;
+}
+
+.eagle {
+  margin: auto;
+  top: 50%;
 }
 </style>
